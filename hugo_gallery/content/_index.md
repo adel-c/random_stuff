@@ -7,3 +7,8 @@ subtitle: "machin sub"
 ---
 
 home content
+
+{{< year >}}
+{{< youtube-embed jfKfPfyJRdk >}}
+
+{{< youtube jfKfPfyJRdk >}}
