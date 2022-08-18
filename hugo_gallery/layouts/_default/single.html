@@ -16,6 +16,7 @@
       <h5 id="wordcount"> {{ .WordCount }} Words </h5>
     </section>
     {{ with .Params.topics }}
+    topics:
     <ul id="topics">
       {{ range . }}
         <li><a href="{{ "topics" | absURL}}{{ . | urlize }}">{{ . }}</a> </li>
@@ -23,6 +24,7 @@
     </ul>
     {{ end }}
     {{ with .Params.tags }}
+    tags:
     <ul id="tags">
       {{ range . }}
         <li> <a href="{{ "tags" | absURL }}{{ . | urlize }}">{{ . }}</a> </li>
