@@ -1,0 +1,2 @@
+Whenever you want to create a pod manifest from scratch, you can also use the following command to create the file and then edit it to add more fields
+kubectl run kiada --image=luksa/kiada:0.1 --dry-run=client -o yaml > mypod.yaml

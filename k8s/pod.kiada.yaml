@@ -1,0 +1,10 @@
+apiVersion: v1    #A
+kind: Pod    #B
+metadata:     
+  name: kiada    #C
+spec: 
+  containers: 
+  - name: kiada    #D
+    image: luksa/kiada:0.1    #E
+    ports: 
+    - containerPort: 8080    #F
