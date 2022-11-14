@@ -1,2 +1,2 @@
- shared/token
- shared/k3s.yaml
+shared/
+.vagrant/
