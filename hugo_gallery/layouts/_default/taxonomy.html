@@ -1,7 +1,6 @@
 
 
 {{ define "main" }}
-<main>
   <div>
    <h1>{{ .Title }}</h1>
    <!-- ranges through each of the content files associated with a particular taxonomy term and renders the summary.html content view -->
@@ -9,5 +8,4 @@
         {{ .Render "summary"}}
     {{ end }}
   </div>
-</main>
 {{ end }}
