@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Machin from './Machin.svelte';
+	
 	let a = 0;
 	let b = 0;
 	let total = 0;
@@ -27,7 +27,7 @@
 		return await response.json();
 	}
 </script>
-
+<div>
 <input type="number" bind:value={a} /> +
 <input type="number" bind:value={b} /> =
 {total}
@@ -35,4 +35,4 @@
 <button on:click={add}>Calculate</button>
 
 <button on:click={randomValues}>random data</button>
-<Machin></Machin>
+</div>
