@@ -1,8 +1,16 @@
+import Head from 'next/head';
+import Link from 'next/link';
+import Layout from '../../components/layout';
 export default function FirstPost() {
-    return <>
-    <h1>First Post</h1>
-    <div>machin truc</div>
-    <div>un autre machin</div>
-    </>;
-  }
-  
+  return (
+    <Layout home={false}>
+      <Head>
+        <title>First Post</title>
+      </Head>
+      <h1>First Post</h1>
+      <h2>
+        <Link href="/">← Back to home</Link>
+      </h2>
+    </Layout>
+  );
+}
