@@ -8,7 +8,7 @@ import React from 'react';
 const name = 'Your Name';
 export const siteTitle = 'Next.js Sample Website';
 
-export default function Layout({ children, home=false }: { home?: boolean, children: React.ReactElement[] }) {
+export default function Layout({ children, home=false }: { home?: boolean, children?: React.ReactNode }) {
     return (
         <div className={styles.container}>
             <Head>
