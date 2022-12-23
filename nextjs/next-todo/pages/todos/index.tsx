@@ -7,16 +7,18 @@ import {fetchTodos, postTodo} from "../../lib/Todo";
 export default function Todos() {
     const {register, handleSubmit, watch, formState: {errors}} = useForm<Todo>();
     const [todos, setTodos] = useState([] as Todo[])
+    const fetchData = async () => {
+        const response = await fetchTodos()
+        setTodos(response);
+    }
     const onSubmit: SubmitHandler<Todo> = async data => {
         const response = await postTodo(data);
-        setTodos([...todos, response])
+      //  setTodos([...todos, response])
+        await fetchData()
     };
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetchTodos()
-            setTodos(response);
-        }
+
 
         // call the function
         fetchData()
