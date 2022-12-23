@@ -50,6 +50,13 @@ export default function Todos() {
                 <button type={"submit"}>Submit</button>
             </form>
 
+
+            <ul>
+
+            {todos.map(t=>(
+                <li key={t.todo}> {t.todo} : {t.detail}</li>
+            ))}
+            </ul>
         </Layout>
     );
 }
