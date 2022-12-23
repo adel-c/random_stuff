@@ -1,34 +1,34 @@
 import Layout from '../../components/layout';
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
+import {Todo} from "../../lib/Domain";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-type TodoForm = {
-    todo: string;
-    detail?:string;
-}
 export default function Todos() {
-    const [form, setValue]: [TodoForm, ((value: (((prevState: TodoForm) => TodoForm) | TodoForm)) => void)] = useState({todo: ""} as TodoForm)
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<Todo>();
+    const [todos,setTodos]=useState([] as Todo[])
+    const onSubmit: SubmitHandler<Todo> = data => {
+        console.log(data)
+    };
 
-    function handleChange(event: React.FormEvent<HTMLInputElement>) {
-        console.log("change event", event)
-        setValue({...form, [event.currentTarget.id]: event.currentTarget.value,})
-    }
-
-    function handleSubmit(event: FormEvent) {
-        event.preventDefault();
-        console.log("handleSubmit", event)
-        console.log("handleSubmit", form)
-    }
+    useEffect(() => {
+        fetch(`https://jsonplaceholder.typicode.com/posts`)
+            .then((response) => console.log(response));
+    }, []);
 
     return (
         <Layout home>
             <h1>todos</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor='todo'> TODO</label>
-                <input id="todo" type="text" placeholder={"machin"} value={form.todo} onChange={handleChange}/>
+                <input id="todo" type="text" {...register("todo",{required:true})}/>
+                {errors.todo && <span>This field is required</span>}
+                <br/>
                 <label htmlFor='detail'> Detail</label>
-                <input id="detail" type="text" placeholder={"machin"} value={form.detail} onChange={handleChange}/>
+
+                <input id="detail" type="text" {...register("detail")}/>
                 <button type={"submit"}>Submit</button>
             </form>
+
         </Layout>
     );
 }
