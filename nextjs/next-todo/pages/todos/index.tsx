@@ -2,38 +2,26 @@ import Layout from '../../components/layout';
 import React, {useEffect, useState} from "react";
 import {Todo} from "../../lib/Domain";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {fetchTodos, postTodo} from "../../lib/Todo";
 
 export default function Todos() {
     const {register, handleSubmit, watch, formState: {errors}} = useForm<Todo>();
     const [todos, setTodos] = useState([] as Todo[])
     const onSubmit: SubmitHandler<Todo> = async data => {
-        const response = await fetch(`/api/todo`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(data)
-        });
-
+        const response = await postTodo(data);
+        setTodos([...todos, response])
     };
 
     useEffect(() => {
         const fetchData = async () => {
-            // get the data from the api
-            const response = await fetch(`/api/todo`);
-            // convert the data to json
-            const json = await response.json() as Todo[];
-
-            // set state with the result
-            setTodos(json);
+            const response = await fetchTodos()
+            setTodos(response);
         }
 
         // call the function
         fetchData()
             // make sure to catch any error
             .catch(console.error);
-        ;
     }, []);
 
     return (
@@ -53,9 +41,9 @@ export default function Todos() {
 
             <ul>
 
-            {todos.map(t=>(
-                <li key={t.todo}> {t.todo} : {t.detail}</li>
-            ))}
+                {todos.map(t => (
+                    <li key={t.todo}> {t.todo} : {t.detail}</li>
+                ))}
             </ul>
         </Layout>
     );
