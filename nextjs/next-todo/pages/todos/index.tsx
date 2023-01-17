@@ -2,9 +2,22 @@ import Layout from '../../components/layout';
 import React, {useEffect, useState} from "react";
 import {Todo} from "../../lib/Domain";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {fetchTodos, postTodo} from "../../lib/Todo";
+import useOpenNavBar, {fetchTodos, postTodo} from "../../lib/Todo";
 
+function Machin({isOpen,handleToggle}:any){
+    //const {isOpen,handleToggle} =useOpenNavBar()
+    return(
+<>
+        <div>dans le truc</div>
+    <button onClick={handleToggle}>{isOpen && "isOpen"} {!isOpen && "isClose"} </button>
+</>
+    )
+
+
+}
 export default function Todos() {
+
+    const {isOpen,handleToggle} =useOpenNavBar()
     const {register, handleSubmit, watch, formState: {errors}} = useForm<Todo>();
     const [todos, setTodos] = useState([] as Todo[])
     const fetchData = async () => {
@@ -27,26 +40,11 @@ export default function Todos() {
     }, []);
 
     return (
-        <Layout home>
-            <h1>todos</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor='todo'> TODO</label>
-                <input id="todo" type="text" {...register("todo", {required: true})}/>
-                {errors.todo && <span>This field is required</span>}
-                <br/>
-                <label htmlFor='detail'> Detail</label>
+<>
 
-                <input id="detail" type="text" {...register("detail")}/>
-                <button type={"submit"}>Submit</button>
-            </form>
+<button onClick={handleToggle}>{isOpen && "isOpen"} {!isOpen && "isClose"} </button>
+            <Machin isOpen={isOpen} handleToggle={handleToggle}></Machin>
 
-
-            <ul>
-
-                {todos.map(t => (
-                    <li key={t.todo}> {t.todo} : {t.detail}</li>
-                ))}
-            </ul>
-        </Layout>
+</>
     );
 }

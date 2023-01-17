@@ -1,5 +1,5 @@
+import { useState } from "react";
 import {Todo} from "./Domain";
-
 export const fetchTodos: () => Promise<Todo[]> = async () => {
     // get the data from the api
     const response = await fetch(`/api/todo`);
@@ -22,4 +22,13 @@ export const postTodo: (todo: Todo) => Promise<Todo> = async (todo) => {
     })
     return respose.json()
 
+}
+let isOpen =false;
+export default function useOpenNavBar(){
+    const[,setIsOpen] = useState({});
+    const handleToggle=()=>{
+        isOpen=!isOpen
+        setIsOpen({});
+    }
+    return {isOpen,handleToggle}
 }
