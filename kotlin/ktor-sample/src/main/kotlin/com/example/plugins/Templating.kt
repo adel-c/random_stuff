@@ -8,15 +8,18 @@ import kotlinx.html.*
 import kotlinx.css.*
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.http.content.*
 import io.ktor.server.routing.*
+import io.ktor.server.routing.get
 
 fun Application.configureTemplating() {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
     }
-    
-    
+
+
     routing {
+        staticResources("/static", "assets")
         get("/html-freemarker") {
             call.respond(FreeMarkerContent("index.ftl", mapOf("data" to IndexData(listOf(1, 2, 3))), ""))
         }
@@ -35,15 +38,18 @@ fun Application.configureTemplating() {
         get("/styles.css") {
             call.respondCss {
                 body {
-                    backgroundColor = Color.darkBlue
+                    backgroundColor = Color.lightGray
                     margin(0.px)
                 }
                 rule("h1.page-title") {
                     color = Color.white
                 }
+                rule("li") {
+                    color = Color.beige
+                }
             }
         }
-        
+
         get("/html-css-dsl") {
             call.respondHtml {
                 head {
@@ -52,6 +58,11 @@ fun Application.configureTemplating() {
                 body {
                     h1(classes = "page-title") {
                         +"Hello from Ktor!"
+                    }
+                    ul {
+                        for (n in 1..10) {
+                            li { +"$n" }
+                        }
                     }
                 }
             }
