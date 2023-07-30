@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Page {
     MAIN("main"),
-    ABOUT("about"),
-    NOT_FOUND(null);
+    ABOUT("about");
+
     final String path;
     final String fragmentPath;
 
@@ -25,10 +25,10 @@ public enum Page {
     public static Page getPageByPath(String path) {
         for (Page value : Page.values()) {
 
-            if (value.path.equals(path)) {
+            if ( value.path.equals(path)) {
                 return value;
             }
         }
-        return NOT_FOUND;
+        return null;
     }
 }
