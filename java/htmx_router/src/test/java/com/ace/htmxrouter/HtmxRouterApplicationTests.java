@@ -1,4 +1,4 @@
-package com.ace.htmx_router;
+package com.ace.htmxrouter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

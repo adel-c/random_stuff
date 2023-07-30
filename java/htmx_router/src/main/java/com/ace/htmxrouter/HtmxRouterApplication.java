@@ -1,4 +1,4 @@
-package com.ace.htmx_router;
+package com.ace.htmxrouter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
