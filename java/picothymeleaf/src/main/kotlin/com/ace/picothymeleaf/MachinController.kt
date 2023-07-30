@@ -15,9 +15,15 @@ class MachinController(val pageService: PageService)  {
     @GetMapping
     fun machin(model: Model): String {
         pageService.loadMainDate(model)
+        model.addAttribute("fragment","/page/main")
         return "index"
     }
-
+    @GetMapping("about")
+    fun about(model: Model): String {
+        pageService.loadMainDate(model)
+        model.addAttribute("fragment","/page/about")
+        return "index"
+    }
     @GetMapping("/c/2")
     fun p2(model: Model): String {
         model.addAttribute("testAtt", Date())

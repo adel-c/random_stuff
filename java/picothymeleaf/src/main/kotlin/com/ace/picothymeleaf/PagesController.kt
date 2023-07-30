@@ -11,7 +11,7 @@ class PagesController(val pageService: PageService) {
 
     @GetMapping("/main")
     fun main(model: Model):String{
-pageService.loadMainDate(model)
+        pageService.loadMainDate(model)
         return "/page/main"
     }
     @GetMapping("/about")

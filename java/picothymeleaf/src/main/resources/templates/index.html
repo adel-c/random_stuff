@@ -5,15 +5,22 @@
     <title>Title</title>
     <script src="/webjars/htmx.org/1.9.4/dist/htmx.js"></script>
     <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>
+
 </head>
 <body>
+<script>
+    function changePath(path){
+        console.log(path);
+        window.history.pushState({},"", path);
+    }
+</script>
 <div class="grid">
-    <div hx-boost="true" hx-get="/page/main" hx-target="#mainContent">Main</div>
-    <div  hx-boost="true" hx-get="/page/about" hx-target="#mainContent">About</div>
+    <div hx-boost="true" hx-get="/page/main" hx-target="#mainContent" hx-on="click: changePath('/')" >Main</div>
+    <div  hx-boost="true" hx-get="/page/about" hx-target="#mainContent" hx-on="click: changePath('/about')" >About</div>
 </div>
 
 <main id="mainContent" class="container">
-    <div th:insert="~{/page/main}"></div>
+    <div th:insert="~{${fragment}}"></div>
 </main>
 </body>
 </html>
