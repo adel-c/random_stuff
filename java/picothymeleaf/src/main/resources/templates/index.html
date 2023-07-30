@@ -7,22 +7,13 @@
     <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>
 </head>
 <body>
+<div class="grid">
+    <div hx-boost="true" hx-get="/page/main" hx-target="#mainContent">Main</div>
+    <div  hx-boost="true" hx-get="/page/about" hx-target="#mainContent">About</div>
+</div>
 
-
-<main class="container">
-    <h1>Hello, world!</h1>
-    machin la page truc
-
-    <div th:utext="${time.getTime()}"></div>
-    <div th:utext="${name}"></div>
-
-    <a th:href="@{/c/2}">go to p2</a>
-
-    <button hx-get="/api/clicked" hx-swap="innerHTML" hx-target="#result-table"
-           >
-        Click Me
-    </button>
-    <div id="result-table"></div>
+<main id="mainContent" class="container">
+    <div th:insert="~{/page/main}"></div>
 </main>
 </body>
 </html>

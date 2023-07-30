@@ -11,11 +11,10 @@ import java.util.*
 
 @Controller
 @RequestMapping("/")
-class MachinController {
+class MachinController(val pageService: PageService)  {
     @GetMapping
     fun machin(model: Model): String {
-        model.addAttribute("time", Date())
-        model.addAttribute("name","coucou")
+        pageService.loadMainDate(model)
         return "index"
     }
 
