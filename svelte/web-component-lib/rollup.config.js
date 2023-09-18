@@ -8,11 +8,19 @@ const name = pkg.name
     .replace(/-\w/g, m => m[1].toUpperCase());
 
 export default {
-    input: 'src/web_components.js',
-    output: [
-        {file: pkg.module, 'format': 'es'},
-        {file: pkg.main, 'format': 'umd', name}
-    ],
+
+/*
+    //inlineDynamicImports:true,
+input: "src/web_components.js",//["src/Card.svelte", "./src/Button.svelte"],
+    output: {
+        format: "iife",
+        dir: "public/build/",
+    },*/
+    input: ["src/Card.svelte", "./src/Button.svelte"],
+    output: {
+
+        dir: "public/build/",
+    },
     plugins: [
         svelte({
                 compilerOptions: {
