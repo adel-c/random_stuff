@@ -32,6 +32,8 @@ func main() {
 		hotReload: true,
 	}
 	e.Renderer = t
+
+	e.Static("/static", "public/assets")
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
