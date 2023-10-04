@@ -3,34 +3,25 @@ package main
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/widget"
-	"time"
+	"image/color"
+
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
+	//"fyne.io/fyne/v2/layout"
 )
 
-func updateTime(clock *widget.Label) {
-	formatted := time.Now().Format("Time: 03:04:05")
-	clock.SetText(formatted)
-}
-
 func main() {
-	a := app.New()
-	w := a.NewWindow("Clock")
+	myApp := app.New()
+	myWindow := myApp.NewWindow("Container")
+	myWindow.Resize(fyne.Size{Height: 300, Width: 300})
+	green := color.NRGBA{R: 0, G: 180, B: 0, A: 255}
 
-	clock := widget.NewLabel("")
-	updateTime(clock)
+	text1 := canvas.NewText("Hello", green)
+	text2 := canvas.NewText("There", green)
+	text2.Move(fyne.NewPos(20, 20))
+	content := container.NewWithoutLayout(text1, text2)
+	// content := container.New(layout.NewGridLayout(2), text1, text2)
 
-	w.SetContent(clock)
-	go func() {
-		for range time.Tick(time.Second) {
-			updateTime(clock)
-		}
-	}()
-
-	w2 := a.NewWindow("Larger")
-	w2.SetContent(widget.NewLabel("More content"))
-	w2.Resize(fyne.NewSize(100, 100))
-	w2.Show()
-
-	w.Show()
-	a.Run()
+	myWindow.SetContent(content)
+	myWindow.ShowAndRun()
 }
