@@ -18,7 +18,7 @@
       nomodule
       src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
     ></script>
-
+    <script src="./js/htmx.js" type="module"></script>
     <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
     <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./css/style.css" />
@@ -28,5 +28,6 @@
     <capacitor-welcome></capacitor-welcome>
 
     <script src="./js/capacitor-welcome.js" type="module"></script>
+    <div hx-get="http://192.168.1.123:8585/translation" hx-trigger="click">lalalaa</div>
   </body>
 </html>
