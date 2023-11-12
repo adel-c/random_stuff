@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">capapp</string>
+    <string name="title_activity_main">capapp</string>
+    <string name="package_name">com.ace.cap</string>
+    <string name="custom_url_scheme">com.ace.cap</string>
+</resources>
