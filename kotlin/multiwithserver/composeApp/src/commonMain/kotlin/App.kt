@@ -1,6 +1,7 @@
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -28,6 +29,12 @@ fun App() {
             }) {
                 Text(greetingText)
             }
+
+Row(){
+
+    Text("qqqqqd")
+    Text("pdoi")
+}
             AnimatedVisibility(showImage) {
                 Image(
                     painterResource("compose-multiplatform.xml"),
