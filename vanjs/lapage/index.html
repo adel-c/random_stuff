@@ -15,43 +15,47 @@
 </head>
 
 <body>
+
+<div class="grid">
+    <div id="formColumn"></div>
+    <div id="jsonColumn"></div>
+</div>
 <script>
-    const {button, div, ul, li, pre, form, input, p} = van.tags
+    const {button, div, ul, li, pre, form, input, p, label} = van.tags
     const data = van.state("value")
 
 
     let dataList = vanX.reactive([{a: 5, b: 3}, {a: 3, b: 4}])
     let jsValHolder =vanX.reactive({})
     jsValHolder.jsonValue= vanX.calc(() => JSON.stringify(dataList, null, 2))
-    const testForm = () => {
-        return form({
-                onsubmit: (e) => {
-                    e.preventDefault();
-                    console.log("subsub")
-                }
-            }, [
-                input({value: data, id: 'idZ', oninput: e => data.val = e.target.value}),
-                button()
-            ]
-        )
-    }
 
     const result = () => {
-
         //let s= van.derive(()=>)
         return pre(p(() => jsValHolder.jsonValue))
     }
-    const inputField = (v) => {
+    const inputField = (displayName, v) => {
         console.log(v)
-        return input({value: v, oninput: e => v.val = e.target.value})
+        return label({for: displayName},
+            displayName,
+            input({
+                type: "text",
+                id: displayName,
+                name: displayName,
+                placeholder: displayName,
+                value: v,
+                oninput: e => v.val = e.target.value
+            }),
+        )
+
+        //  return input({value: v, oninput: e => v.val = e.target.value})
     }
     const formFiled = (elem,deleter) => {
         console.log(elem)
         console.log(vanX)
         return div({}, [
             elem,
-                inputField(vanX.stateFields(elem.val).a),
-                inputField(vanX.stateFields(elem.val).b),
+            inputField("a", vanX.stateFields(elem.val).a),
+            inputField("b", vanX.stateFields(elem.val).b),
 
             ]
         )
@@ -59,9 +63,10 @@
 
     let compo = vanX.list(ul, dataList, (v,deleter) => formFiled(v,deleter))
 
-    van.add(document.body, testForm(), compo)
-    van.add(document.body, result())
+    van.add(document.getElementById("formColumn"), compo)
+    van.add(document.getElementById("jsonColumn"), result())
 </script>
+
 </body>
 
 </html>
