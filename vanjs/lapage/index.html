@@ -61,10 +61,31 @@
     const formValue=(a,b)=>{
         return {a:a,b:b}
     }
+    const swapRow = (elem, offset) => {
+        let elementIndex = dataList.indexOf(elem.val)
+        let currentElementValue = JSON.parse(JSON.stringify(elem.val))
+        let dataListElement = dataList[elementIndex + offset];
+        if (dataListElement) {
+            let nextElementValue = JSON.parse(JSON.stringify(dataListElement))
+            console.log(elementIndex, vanX.stateFields(elem.val))
+            dataList.splice(elementIndex, 1, nextElementValue)
+            dataList.splice(elementIndex + offset, 1, currentElementValue)
+        }
+        // dataList[elementIndex].replace(nextElementValue)
+        // dataList[elementIndex+1].replace(currentElementValue)
+    }
     const formFiled = (elem,deleter) => {
         console.log("formField",elem)
         return div({}, [
-            div({style:'display:flex;justify-content:end;'},button({onclick:deleter},"delete me")),
+            div({style: 'display:flex;justify-content:end;'}, button({onclick: deleter}, "delete me"),
+                button({
+                    onclick: () => {
+                        swapRow(elem, +1)
+
+                    }
+
+                }, "down")
+            ),
             inputField("a", vanX.stateFields(elem.val).a),
             inputField("b", vanX.stateFields(elem.val).b),
 
@@ -73,7 +94,10 @@
     }
 
 
-    let compo = vanX.list(ul, dataList, (v,deleter) => formFiled(v,deleter))
+    let compo = vanX.list(ul, dataList, (v, deleter, tt) => {
+        console.log(tt);
+        return formFiled(v, deleter)
+    })
 
     van.add(document.getElementById("formColumn"), button({onclick:()=>dataList.unshift(formValue("",""))},"new") ,compo)
 ///////RIGHT SIDE
