@@ -34,7 +34,10 @@
 
     let dataList = vanX.reactive([{a: 5, b: 3}, {a: 3, b: 4}])
     let jsValHolder =vanX.reactive({})
-    jsValHolder.jsonValue = vanX.calc(() => JSON.stringify(dataList.filter(_ => 1), null, 2))
+    jsValHolder.jsonValue = vanX.calc(() => JSON.stringify(dataList.filter(_ => 1),
+        (key, value) => {
+            if (value) return value
+        }, 2))
 
 
     const board = new MessageBoard({top: "20px"})
@@ -57,10 +60,10 @@
 
         //  return input({value: v, oninput: e => v.val = e.target.value})
     }
-
-    const formValue=(a,b)=>{
-        return {a:a,b:b}
+    const formValueObj=(o)=>{
+        return {a:'',b:'',...o}
     }
+
     const swapRow = (elem, offset) => {
         let elementIndex = dataList.indexOf(elem.val)
         let currentElementValue = JSON.parse(JSON.stringify(elem.val))
@@ -90,18 +93,18 @@
     }
 
 
-    let compo = vanX.list(ul, dataList, (v, deleter, tt) => {
+    let compo = vanX.list(div, dataList, (v, deleter, tt) => {
         console.log(tt);
         return formFiled(v, deleter)
     })
 
-    van.add(document.getElementById("formColumn"), button({onclick:()=>dataList.unshift(formValue("",""))},"new") ,compo)
+    van.add(document.getElementById("formColumn"), button({onclick:()=>dataList.unshift(formValueObj())},"new") ,compo)
 ///////RIGHT SIDE
     const replaceDataListWithJson = (js) => {
         try {
             let parse = JSON.parse(js);
             errorValue.val = "";
-            vanX.replace(dataList, l => parse)
+            vanX.replace(dataList, l => parse.map(i=>formValueObj(i)))
         } catch (e) {
             errorValue.val = e.message;
             console.log(e)
