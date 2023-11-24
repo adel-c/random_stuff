@@ -45,6 +45,7 @@
         return div({style: "min-height:100vh;height:100%;"},
 
             div({style: 'color:red;'}, () => errorValue.val),
+            button({onclick:()=> navigator.clipboard.writeText( jsValHolder.jsonValue)},"copy"),
             textArea({
                 oninput: e => replaceDataListWithJson(e.target.value), style: "height:100%;", value: () => {
                     console.log("az", jsValHolder.jsonValue);
@@ -68,10 +69,14 @@
 
         //  return input({value: v, oninput: e => v.val = e.target.value})
     }
+
+    const formValue=(a,b)=>{
+        return {a:a,b:b}
+    }
     const formFiled = (elem,deleter) => {
         console.log("formField",elem)
         return div({}, [
-            div({onclick:deleter},"delete me"),
+            div({style:'display:flex;justify-content:end;'},div({onclick:deleter},"delete me")),
             inputField("a", vanX.stateFields(elem.val).a),
             inputField("b", vanX.stateFields(elem.val).b),
 
@@ -81,7 +86,8 @@
 
     let compo = vanX.list(ul, dataList, (v,deleter) => formFiled(v,deleter))
 
-    van.add(document.getElementById("formColumn"), compo)
+    van.add(document.getElementById("formColumn"), div({onclick:()=>dataList.unshift(formValue("XX",""))},"new") ,compo)
+
     van.add(document.getElementById("jsonColumn"), result())
 </script>
 
