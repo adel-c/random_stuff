@@ -36,32 +36,8 @@
     const showTextCopied = () => board.show({message: "Text Copied", durationSec: 1})
     van.add(document.body, board)
 
+///// left side
 
-    const replaceDataListWithJson = (js) => {
-        try {
-            let parse = JSON.parse(js);
-            errorValue.val = "";
-            vanX.replace(dataList, l => parse)
-        } catch (e) {
-            errorValue.val = e.message;
-            console.log(e)
-        }
-    }
-    const result = () => {
-        //let s= van.derive(()=>)
-        // return pre(p(() => jsValHolder.jsonValue))
-        return div({style: "min-height:99vh;height:100%;"},
-
-            div({style: 'color:red;'}, () => errorValue.val),
-            button({onclick: () => navigator.clipboard.writeText(jsValHolder.jsonValue).then(() => showTextCopied())}, "copy"),
-            textArea({
-                oninput: e => replaceDataListWithJson(e.target.value), style: "height:99%;", value: () => {
-                    console.log("az", jsValHolder.jsonValue);
-                    return jsValHolder.jsonValue
-                }
-            })
-        )
-    }
     const inputField = (displayName, v) => {
         return label({for: displayName},
             displayName,
@@ -92,9 +68,38 @@
         )
     }
 
+
     let compo = vanX.list(ul, dataList, (v,deleter) => formFiled(v,deleter))
-    van.add(document.body, board)
+
     van.add(document.getElementById("formColumn"), div({onclick:()=>dataList.unshift(formValue("XX",""))},"new") ,compo)
+///////RIGHT SIDE
+    const replaceDataListWithJson = (js) => {
+        try {
+            let parse = JSON.parse(js);
+            errorValue.val = "";
+            vanX.replace(dataList, l => parse)
+        } catch (e) {
+            errorValue.val = e.message;
+            console.log(e)
+        }
+    }
+    const result = () => {
+        //let s= van.derive(()=>)
+        // return pre(p(() => jsValHolder.jsonValue))
+        return div({style: "min-height:99vh;height:100%;"},
+
+            div({style: 'color:red;'}, () => errorValue.val),
+            button({onclick: () => navigator.clipboard.writeText(jsValHolder.jsonValue).then(() => showTextCopied())}, "copy"),
+            textArea({
+                oninput: e => replaceDataListWithJson(e.target.value), style: "height:99%;", value: () => {
+                    console.log("az", jsValHolder.jsonValue);
+                    return jsValHolder.jsonValue
+                }
+            })
+        )
+    }
+
+
 
     van.add(document.getElementById("jsonColumn"), result())
 </script>
