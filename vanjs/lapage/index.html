@@ -22,20 +22,40 @@
 </div>
 <script>
     const {button, div, ul, li, pre, form, textArea, input, p, label} = van.tags
-    const data = van.state("value")
+    const errorValue = van.state("")
 
 
     let dataList = vanX.reactive([{a: 5, b: 3}, {a: 3, b: 4}])
     let jsValHolder =vanX.reactive({})
-    jsValHolder.jsonValue= vanX.calc(() => JSON.stringify(dataList, null, 2))
+    jsValHolder.jsonValue = vanX.calc(() => {
+        console.log("azeaz");
+        return JSON.stringify(dataList, null, 2)
+    })
 
     const replaceDataListWithJson = (js) => {
-            vanX.replace(dataList,l=>JSON.parse(js))
+        try {
+
+            let parse = JSON.parse(js);
+            errorValue.val = "";
+            vanX.replace(dataList, l => parse)
+        } catch (e) {
+            errorValue.val = e.message;
+            console.log(e)
+        }
     }
     const result = () => {
         //let s= van.derive(()=>)
         // return pre(p(() => jsValHolder.jsonValue))
-        return textArea({oninput: e => replaceDataListWithJson(e.target.value), style: "height:100%;"}, () => jsValHolder.jsonValue)
+        return div({style: "height:100%;"},
+
+            div({style: 'color:red;'}, () => errorValue.val),
+            textArea({
+                oninput: e => replaceDataListWithJson(e.target.value), style: "height:100%;", value: () => {
+                    console.log("az", jsValHolder.jsonValue);
+                    return jsValHolder.jsonValue
+                }
+            })
+        )
     }
     const inputField = (displayName, v) => {
         return label({for: displayName},
