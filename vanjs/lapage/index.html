@@ -65,14 +65,18 @@
     }
 
     const swapRow = (elem, offset) => {
-        let elementIndex = dataList.indexOf(elem.val)
+        let cleanData = dataList.filter(_ => 1);
+        let elementIndex = cleanData.indexOf(elem.val)
         let currentElementValue = JSON.parse(JSON.stringify(elem.val))
-        let dataListElement = dataList[elementIndex + offset];
+        let dataListElement = cleanData[elementIndex + offset];
+
         if (dataListElement) {
+            let sourceIndex=dataList.indexOf(elem.val)
+            let targetIndex=dataList.indexOf(dataListElement)
             let nextElementValue = JSON.parse(JSON.stringify(dataListElement))
             console.log(elementIndex, vanX.stateFields(elem.val))
-            dataList.splice(elementIndex, 1, nextElementValue)
-            dataList.splice(elementIndex + offset, 1, currentElementValue)
+            dataList.splice(sourceIndex, 1, nextElementValue)
+            dataList.splice(targetIndex, 1, currentElementValue)
         }
         // dataList[elementIndex].replace(nextElementValue)
         // dataList[elementIndex+1].replace(currentElementValue)
