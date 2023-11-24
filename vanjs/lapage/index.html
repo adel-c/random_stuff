@@ -14,6 +14,11 @@
     <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.10.0/dist/van-ui.nomodule.min.js"></script>
     <meta content="#fafafa" name="theme-color">
+    <style>
+        button{
+            width: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,7 +39,6 @@
 
     const board = new MessageBoard({top: "20px"})
     const showTextCopied = () => board.show({message: "Text Copied", durationSec: 1})
-    van.add(document.body, board)
 
 ///// left side
 
@@ -60,7 +64,7 @@
     const formFiled = (elem,deleter) => {
         console.log("formField",elem)
         return div({}, [
-            div({style:'display:flex;justify-content:end;'},div({onclick:deleter},"delete me")),
+            div({style:'display:flex;justify-content:end;'},button({onclick:deleter},"delete me")),
             inputField("a", vanX.stateFields(elem.val).a),
             inputField("b", vanX.stateFields(elem.val).b),
 
@@ -71,7 +75,7 @@
 
     let compo = vanX.list(ul, dataList, (v,deleter) => formFiled(v,deleter))
 
-    van.add(document.getElementById("formColumn"), div({onclick:()=>dataList.unshift(formValue("XX",""))},"new") ,compo)
+    van.add(document.getElementById("formColumn"), button({onclick:()=>dataList.unshift(formValue("",""))},"new") ,compo)
 ///////RIGHT SIDE
     const replaceDataListWithJson = (js) => {
         try {
