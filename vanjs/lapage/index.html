@@ -77,14 +77,10 @@
     const formFiled = (elem,deleter) => {
         console.log("formField",elem)
         return div({}, [
-            div({style: 'display:flex;justify-content:end;'}, button({onclick: deleter}, "delete me"),
-                button({
-                    onclick: () => {
-                        swapRow(elem, +1)
-
-                    }
-
-                }, "down")
+            div({style: 'display:flex;justify-content:end;gap:1rem;'},
+                button({onclick: () => swapRow(elem, -1)}, "up"),
+                button({onclick: () => swapRow(elem, +1)}, "down"),
+                button({onclick: deleter}, "delete me"),
             ),
             inputField("a", vanX.stateFields(elem.val).a),
             inputField("b", vanX.stateFields(elem.val).b),
