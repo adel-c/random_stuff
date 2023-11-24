@@ -11,6 +11,8 @@
             type="text/javascript"></script>
     <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/vanjs-ext@0.1.3/dist/van-x.nomodule.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/vanjs-ui@0.10.0/dist/van-ui.nomodule.min.js"></script>
     <meta content="#fafafa" name="theme-color">
 </head>
 
@@ -29,6 +31,12 @@
     let jsValHolder =vanX.reactive({})
     jsValHolder.jsonValue = vanX.calc(() => JSON.stringify(dataList.filter(_ => 1), null, 2))
 
+
+    const board = new MessageBoard({top: "20px"})
+    const showTextCopied = () => board.show({message: "Text Copied", durationSec: 1})
+    van.add(document.body, board)
+
+
     const replaceDataListWithJson = (js) => {
         try {
             let parse = JSON.parse(js);
@@ -42,12 +50,12 @@
     const result = () => {
         //let s= van.derive(()=>)
         // return pre(p(() => jsValHolder.jsonValue))
-        return div({style: "min-height:100vh;height:100%;"},
+        return div({style: "min-height:99vh;height:100%;"},
 
             div({style: 'color:red;'}, () => errorValue.val),
-            button({onclick:()=> navigator.clipboard.writeText( jsValHolder.jsonValue)},"copy"),
+            button({onclick: () => navigator.clipboard.writeText(jsValHolder.jsonValue).then(() => showTextCopied())}, "copy"),
             textArea({
-                oninput: e => replaceDataListWithJson(e.target.value), style: "height:100%;", value: () => {
+                oninput: e => replaceDataListWithJson(e.target.value), style: "height:99%;", value: () => {
                     console.log("az", jsValHolder.jsonValue);
                     return jsValHolder.jsonValue
                 }
@@ -85,7 +93,7 @@
     }
 
     let compo = vanX.list(ul, dataList, (v,deleter) => formFiled(v,deleter))
-
+    van.add(document.body, board)
     van.add(document.getElementById("formColumn"), div({onclick:()=>dataList.unshift(formValue("XX",""))},"new") ,compo)
 
     van.add(document.getElementById("jsonColumn"), result())
