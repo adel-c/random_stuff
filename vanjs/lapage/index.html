@@ -27,14 +27,10 @@
 
     let dataList = vanX.reactive([{a: 5, b: 3}, {a: 3, b: 4}])
     let jsValHolder =vanX.reactive({})
-    jsValHolder.jsonValue = vanX.calc(() => {
-        console.log("azeaz");
-        return JSON.stringify(dataList, null, 2)
-    })
+    jsValHolder.jsonValue = vanX.calc(() => JSON.stringify(dataList.filter(_ => 1), null, 2))
 
     const replaceDataListWithJson = (js) => {
         try {
-
             let parse = JSON.parse(js);
             errorValue.val = "";
             vanX.replace(dataList, l => parse)
@@ -46,7 +42,7 @@
     const result = () => {
         //let s= van.derive(()=>)
         // return pre(p(() => jsValHolder.jsonValue))
-        return div({style: "height:100%;"},
+        return div({style: "min-height:100vh;height:100%;"},
 
             div({style: 'color:red;'}, () => errorValue.val),
             textArea({
@@ -75,7 +71,7 @@
     const formFiled = (elem,deleter) => {
         console.log("formField",elem)
         return div({}, [
-            elem,
+            div({onclick:deleter},"delete me"),
             inputField("a", vanX.stateFields(elem.val).a),
             inputField("b", vanX.stateFields(elem.val).b),
 
