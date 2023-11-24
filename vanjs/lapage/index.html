@@ -21,7 +21,7 @@
     <div id="jsonColumn"></div>
 </div>
 <script>
-    const {button, div, ul, li, pre, form, input, p, label} = van.tags
+    const {button, div, ul, li, pre, form, textArea, input, p, label} = van.tags
     const data = van.state("value")
 
 
@@ -29,12 +29,15 @@
     let jsValHolder =vanX.reactive({})
     jsValHolder.jsonValue= vanX.calc(() => JSON.stringify(dataList, null, 2))
 
+    const replaceDataListWithJson = (js) => {
+            vanX.replace(dataList,l=>JSON.parse(js))
+    }
     const result = () => {
         //let s= van.derive(()=>)
-        return pre(p(() => jsValHolder.jsonValue))
+        // return pre(p(() => jsValHolder.jsonValue))
+        return textArea({oninput: e => replaceDataListWithJson(e.target.value), style: "height:100%;"}, () => jsValHolder.jsonValue)
     }
     const inputField = (displayName, v) => {
-        console.log(v)
         return label({for: displayName},
             displayName,
             input({
@@ -50,8 +53,7 @@
         //  return input({value: v, oninput: e => v.val = e.target.value})
     }
     const formFiled = (elem,deleter) => {
-        console.log(elem)
-        console.log(vanX)
+        console.log("formField",elem)
         return div({}, [
             elem,
             inputField("a", vanX.stateFields(elem.val).a),
