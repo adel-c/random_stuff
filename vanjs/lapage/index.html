@@ -23,7 +23,7 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            background-color: lightcyan;
+            background-color: lightgray;
             padding: 1rem;
             display: flex;
             gap: 1rem
@@ -33,10 +33,7 @@
 </head>
 
 <body>
-<script>
-    const {button, div, h2,ul, li, pre, form, textArea, input, p, label} = van.tags
 
-</script>
 
 <header class="banner" id="banner"></header>
 <div class="grid">
@@ -44,17 +41,19 @@
     <div id="jsonColumn"></div>
 </div>
 <script>
-    //const {button, div, h2,ul, li, pre, form, textArea, input, p, label} = van.tags
+    const {select,option,button, div, h2,ul, li, pre, form, textArea, input, p, label} = van.tags
     const errorValue = van.state("")
 
 
     van.add(document.getElementById("banner"),
 
-        button({onclick:()=>dataList.unshift(formValueObj())},"new"),
+        button({onclick:()=>dataList.unshift(formValueObj())},"new element"),
         button({onclick: () => navigator.clipboard.writeText(jsValHolder.jsonValue).then(() => showTextCopied())}, "copy Json"),
     );
-
-    let dataList = vanX.reactive([{a: 5, b: 3,c:"aze"}, {a: 3, b: 4,c:"asssl"}])
+    const formValueObj=(o)=>{
+        return {a:'',b:'',c:'',d:'',...o}
+    }
+    let dataList = vanX.reactive([formValueObj({a: 5, b: 3,c:"aze"}), formValueObj({a: 3, b: 4,c:"asssl"})])
     let jsValHolder =vanX.reactive({})
     jsValHolder.jsonValue = vanX.calc(() => JSON.stringify(dataList.filter(_ => 1),
         (key, value) => {
@@ -78,6 +77,17 @@
             }),
         )
     }
+    const selectField = (displayName, v, options) => {
+        return label({for: displayName},
+            displayName,
+            select({
+                name: displayName,
+                placeholder: displayName,
+                value: v,
+                oninput: e => v.val = e.target.value
+            },options.map(o=>option({value:o,selected:v.val===o},o))),
+        )
+    }
     const inputField = (displayName, v) => {
         return label({for: displayName},
             displayName,
@@ -92,9 +102,7 @@
 
         //  return input({value: v, oninput: e => v.val = e.target.value})
     }
-    const formValueObj=(o)=>{
-        return {a:'',b:'',c:'',...o}
-    }
+
 
     const swapRow = (elem, offset) => {
         let cleanData = dataList.filter(_ => 1);
@@ -123,7 +131,8 @@
             ),
             inputField("a", vanX.stateFields(elem.val).a),
             inputField("b", vanX.stateFields(elem.val).b),
-            textAreaField("c",vanX.stateFields(elem.val).c)
+            textAreaField("c",vanX.stateFields(elem.val).c),
+            selectField("d",vanX.stateFields(elem.val).d,['',"opt1","opt2","opt3"])
             ]
         )
     }
