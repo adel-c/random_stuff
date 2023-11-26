@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="" data-theme="light">
 
 <head>
     <meta charset="utf-8">
@@ -17,20 +17,42 @@
     <style>
         button{
             width: auto;
+            margin: 0;
+        }
+        .banner{
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: lightcyan;
+            padding: 1rem;
+            display: flex;
+            gap: 1rem
+
         }
     </style>
 </head>
 
 <body>
+<script>
+    const {button, div, h2,ul, li, pre, form, textArea, input, p, label} = van.tags
 
+</script>
+
+<header class="banner" id="banner"></header>
 <div class="grid">
     <div id="formColumn"></div>
     <div id="jsonColumn"></div>
 </div>
 <script>
-    const {button, div, ul, li, pre, form, textArea, input, p, label} = van.tags
+    //const {button, div, h2,ul, li, pre, form, textArea, input, p, label} = van.tags
     const errorValue = van.state("")
 
+
+    van.add(document.getElementById("banner"),
+
+        button({onclick:()=>dataList.unshift(formValueObj())},"new"),
+        button({onclick: () => navigator.clipboard.writeText(jsValHolder.jsonValue).then(() => showTextCopied())}, "copy Json"),
+    );
 
     let dataList = vanX.reactive([{a: 5, b: 3,c:"aze"}, {a: 3, b: 4,c:"asssl"}])
     let jsValHolder =vanX.reactive({})
@@ -112,7 +134,7 @@
         return formFiled(v, deleter)
     })
 
-    van.add(document.getElementById("formColumn"), button({onclick:()=>dataList.unshift(formValueObj())},"new") ,compo)
+    van.add(document.getElementById("formColumn")  ,compo)
 ///////RIGHT SIDE
     const replaceDataListWithJson = (js) => {
         try {
@@ -130,7 +152,7 @@
         return div({style: "min-height:99vh;height:100%;"},
 
             div({style: 'color:red;'}, () => errorValue.val),
-            button({onclick: () => navigator.clipboard.writeText(jsValHolder.jsonValue).then(() => showTextCopied())}, "copy"),
+
             textArea({
                 oninput: e => replaceDataListWithJson(e.target.value), style: "height:99%;", value: () => {
                     console.log("az", jsValHolder.jsonValue);
