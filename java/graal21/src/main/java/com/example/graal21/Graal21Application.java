@@ -28,7 +28,6 @@ public class Graal21Application {
 
 
 }
-@Repository
 interface CustomerRepository extends ListCrudRepository<Customer, Integer> {
 
 }
