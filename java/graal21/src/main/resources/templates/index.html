@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <script src="/webjars/htmx.org/1.9.10/dist/htmx.min.js"></script>
+    <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css" type="text/css"/>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<main class="container">
+    <div hx-get="/customers" hx-trigger="load"></div>
 
-<div hx-get="/customers" hx-trigger="load"></div>
+</main>
 </body>
 </html>
