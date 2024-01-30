@@ -1,12 +1,12 @@
-<table>
-    <thead>
+<table class="table is-bordered is-hoverable is-fullwidth" xmlns:th="http://www.thymeleaf.org">
+    <thead class="table-header">
     <tr>
-        <td>id</td>
-        <td>name</td>
+        <th>id</th>
+        <th>name</th>
     </tr>
     </thead>
 <tbody>
-<tr th:each="customer: ${customers}">
+<tr th:each="customer: ${customers}" >
     <td th:text="${customer.id}" ></td>
     <td th:text="${customer.name}" ></td>
 </tr>
