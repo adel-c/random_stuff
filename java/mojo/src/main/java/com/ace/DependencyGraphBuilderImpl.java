@@ -8,14 +8,16 @@ import org.apache.maven.project.ProjectDependenciesResolver;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
 @Named
+
 public class DependencyGraphBuilderImpl implements DependencyGraphBuilder {
-//    private final ProjectDependenciesResolver resolver;
-//
-//    @Inject
-//    public DependencyGraphBuilderImpl(ProjectDependenciesResolver resolver) {
-//        this.resolver = resolver;
-//    }
+    private final ProjectDependenciesResolver resolver;
+
+    @Inject
+    public DependencyGraphBuilderImpl(ProjectDependenciesResolver resolver) {
+        this.resolver = resolver;
+    }
 
     @Override
     public DependencyResolutionResult resolveDependencies(DependencyResolutionRequest request)  {

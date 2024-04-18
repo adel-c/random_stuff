@@ -14,6 +14,8 @@ import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.List;
 
 @Mojo(name = "dependency-counter", defaultPhase = LifecyclePhase.COMPILE)
@@ -22,9 +24,12 @@ public class DependencyCounterMojo extends AbstractMojo {
     MavenProject project;
     @Parameter(defaultValue = "${session}", readonly = true, required = true)
     private MavenSession session;
-    @Component
     private DependencyGraphBuilder graphBuilder;
-
+    @Inject
+    public DependencyCounterMojo( DependencyGraphBuilder component )
+    {
+        this.graphBuilder = component;
+    }
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         List<Dependency> dependencies = project.getDependencies();
