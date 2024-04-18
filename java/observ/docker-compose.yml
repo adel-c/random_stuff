@@ -2,6 +2,9 @@ version: '3'
 services:
   web:
     build: .
+    user: ${MY_UID}:${MY_GID}
+    environment:
+      MAVEN_CONFIG: /var/maven/.m2
     ports:
       - 8080:8080
     volumes:
