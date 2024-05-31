@@ -10,9 +10,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -39,7 +41,8 @@ class WebMvcConfiguration implements WebMvcConfigurer {
 }
 @AllArgsConstructor
 @RestController
-class UserController {
+@RequestMapping("api/")
+class UserJsonController {
     private final UserRepository userRepository;
 
 
@@ -51,6 +54,19 @@ class UserController {
     public User user(@PathVariable Integer id) {
         return userRepository.findById(id).orElseThrow();
     }
+}
+
+@AllArgsConstructor
+@Controller
+class UserController {
+    private final UserRepository userRepository;
+
+
+    @GetMapping("/users")
+    public String users() {
+        return "index";
+    }
+
 }
 
 @Repository
