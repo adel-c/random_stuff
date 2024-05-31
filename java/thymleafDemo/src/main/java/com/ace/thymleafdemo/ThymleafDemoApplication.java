@@ -23,5 +23,5 @@ public class ThymleafDemoApplication {
 
     @Entity
     @Table(name = "USERS")
-    record User(@Id Integer id, String name, String salt, String password, String email, String role) implements Serializable {}
+    record User(@Id Integer id, String name, String salt, String password, String email, String role)  {}
 }
