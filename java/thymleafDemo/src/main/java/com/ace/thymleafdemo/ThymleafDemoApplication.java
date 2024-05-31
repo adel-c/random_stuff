@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
@@ -26,7 +29,14 @@ public class ThymleafDemoApplication {
 
 
 }
-
+class WebMvcConfiguration implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/webjars/**")
+                .addResourceLocations("/webjars/");
+    }
+}
 @AllArgsConstructor
 @RestController
 class UserController {
