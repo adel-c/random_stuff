@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -35,6 +36,10 @@ class UserController {
     @GetMapping("/users")
     public List<User> users() {
         return userRepository.findAll();
+    }
+    @GetMapping("/users/{id}")
+    public User user(@PathVariable Integer id) {
+        return userRepository.findById(id).orElseThrow();
     }
 }
 
