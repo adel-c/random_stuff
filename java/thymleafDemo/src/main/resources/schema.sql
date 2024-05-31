@@ -6,4 +6,4 @@ create table if not exists USERS
     password varchar,
     role     varchar,
     email    varchar
-)
+);
