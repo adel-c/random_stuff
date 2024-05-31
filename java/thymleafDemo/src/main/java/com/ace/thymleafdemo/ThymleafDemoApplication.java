@@ -7,8 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +22,8 @@ public class ThymleafDemoApplication {
         SpringApplication.run(ThymleafDemoApplication.class, args);
     }
 
+    @Controller
+    @ResponseBody
     public static class UserController{
         private final UserRepository userRepository;
 
