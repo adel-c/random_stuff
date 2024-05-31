@@ -20,7 +20,6 @@ public class TestThymleafDemoApplication {
         int containerPort = 5432;
         int localPort = 5533;
         PostgreSQLContainer<?> selfPostgreSQLContainer = new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"))
-                .withReuse(true)
                 .withExposedPorts(containerPort)
                 .withCreateContainerCmdModifier(cmd -> cmd.withHostConfig(
                         new HostConfig().withPortBindings(new PortBinding(Ports.Binding.bindPort(localPort), new ExposedPort(containerPort)))
