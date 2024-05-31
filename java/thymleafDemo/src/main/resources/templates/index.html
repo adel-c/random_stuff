@@ -5,9 +5,10 @@
     <title>Title</title>
     <script src="/webjars/htmx.org/1.9.10/dist/htmx.js"></script>
     <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>
-
+    <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
+<div class="mt-2 text-xl bg-amber-400" th:text="'Hello!'" ></div>
 <script>
     function changePath(path){
         console.log(path);
@@ -20,7 +21,7 @@
 </div>
 
 <main id="mainContent" class="container">
-    <h1 class="mt-2 text-xl" th:text="'Hello!'" />
+
 </main>
 </body>
 </html>
