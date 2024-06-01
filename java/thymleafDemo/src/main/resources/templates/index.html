@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main_layout :: layout(~{::title}, ~{::body})}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/webjars/htmx.org/1.9.10/dist/htmx.js"></script>
-<!--    <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>-->
-    <link th:href="@{/main.css}" rel="stylesheet" />
+    <title>coucou</title>
 </head>
-<body class="dark:bg-gray-900 dark:text-slate-400">
-<div class="mt-2 text-xl bg-blue-900" th:text="'Hello!'" ></div>
+<body>
 
 
-
-<main id="mainContent" class="w-3/4 ">
     <table class="border-collapse table-fixed w-full text-sm">
         <thead>
         <tr>
@@ -32,6 +25,7 @@
     </tr>
         </tbody>
     </table>
-</main>
+
+c'est trop bien
 </body>
 </html>
