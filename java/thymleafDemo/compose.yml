@@ -6,7 +6,7 @@ services:
       - ./:/code
     build:
       context: .
-      dockerfile: ./src/main/frontend/Dockerfile
+      dockerfile: tailwind/Dockerfile
   postgres:
     image: 'postgres:latest'
     environment:

@@ -15,7 +15,8 @@ node_modules/**
 .settings
 .springBeans
 .sts4-cache
-
+tailwind/node/**
+tailwind/node_modules/**
 ### IntelliJ IDEA ###
 .idea
 *.iws
