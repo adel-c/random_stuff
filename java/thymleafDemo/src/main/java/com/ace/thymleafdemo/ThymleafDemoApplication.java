@@ -44,27 +44,27 @@ class WebMvcConfiguration implements WebMvcConfigurer {
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/")
-class UserJsonController {
-    private final UserRepository userRepository;
+class CustomerJsonController {
+    private final CustomerRepository userRepository;
 
 
-    @GetMapping("/users")
-    public List<User> users() {
+    @GetMapping("/customer")
+    public List<Customer> users() {
         return userRepository.findAll();
     }
-    @GetMapping("/users/{id}")
-    public User user(@PathVariable Integer id) {
+    @GetMapping("/customer/{id}")
+    public Customer user(@PathVariable Integer id) {
         return userRepository.findById(id).orElseThrow();
     }
 }
 
 @AllArgsConstructor
 @Controller
-class UserController {
-    private final UserRepository userRepository;
+class CustomerController {
+    private final CustomerRepository userRepository;
 
 
-    @GetMapping("/users")
+    @GetMapping("/customer")
     public String users() {
         return "index";
     }
@@ -72,21 +72,16 @@ class UserController {
 }
 
 @Repository
-interface UserRepository extends ListCrudRepository<User, Integer> {
+interface CustomerRepository extends ListCrudRepository<Customer, Integer> {
 }
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "CUSTOMER")
 @NoArgsConstructor
 @Getter
-class User {
+class Customer {
     @Id
     private Integer id;
     private String name;
-    @JsonIgnore
-    private String salt;
-    @JsonIgnore
-    private String password;
     private String email;
-    private String role;
 }
