@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +66,8 @@ class CustomerController {
 
 
     @GetMapping("/customer")
-    public String users() {
+    public String users(Model model) {
+        model.addAttribute("users", userRepository.findAll());
         return "index";
     }
 
