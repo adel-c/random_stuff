@@ -1,10 +1,6 @@
 {
   "name": "frontend",
   "private": true,
-  "scripts": {
-    "build": "../src/main/frontend/node_modules/.bin/tailwindcss -i main.css -o ../../../target/classes/static/main.css",
-    "watch": "../src/main/frontend/node_modules/.bin/tailwindcss -i main.css -o ../../../target/classes/static/main.css --watch"
-  },
   "devDependencies": {
     "tailwindcss": "^3.4.3"
   }
