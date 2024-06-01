@@ -26,9 +26,9 @@
         </thead>
         <tbody>
     <tr th:each="customer: ${customers}">
-        <td th:text="${customer.id}" />
-        <td th:text="${customer.name}" />
-        <td th:text="${customer.email}" />
+        <td ><a th:href="@{/customer/{id}(id=${customer.id})}" th:text="'edit'+${customer.id}">edit</a></td>
+        <td th:text="${customer.name}" ></td>
+        <td th:text="${customer.email}" ></td>
     </tr>
         </tbody>
     </table>

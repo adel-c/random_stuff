@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class ThymleafDemoApplication {
@@ -71,6 +72,15 @@ class CustomerController {
     public String users(Model model) {
         model.addAttribute("customers", customerRepository.findAll());
         return "index";
+    }
+    @GetMapping("/customer/{id}")
+    public String user(Model model, @PathVariable Integer id) {
+        Optional<Customer> byId = customerRepository.findById(id);
+        if(byId.isEmpty()){
+            return "notfound";
+        }
+        model.addAttribute("customer", byId.get());
+        return "edit";
     }
 
 }
