@@ -63,7 +63,11 @@ class CustomerJsonController {
 @Controller
 class CustomerController {
     private final CustomerRepository userRepository;
-
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "index";
+    }
 
     @GetMapping("/customer")
     public String users(Model model) {
