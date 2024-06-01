@@ -1,6 +1,5 @@
 package com.ace.thymleafdemo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -62,16 +60,16 @@ class CustomerJsonController {
 @AllArgsConstructor
 @Controller
 class CustomerController {
-    private final CustomerRepository userRepository;
+    private final CustomerRepository customerRepository;
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("customers", customerRepository.findAll());
         return "index";
     }
 
     @GetMapping("/customer")
     public String users(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("customers", customerRepository.findAll());
         return "index";
     }
 

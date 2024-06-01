@@ -4,27 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="/webjars/htmx.org/1.9.10/dist/htmx.js"></script>
-    <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>
+<!--    <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>-->
     <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
 <div class="mt-2 text-xl bg-blue-900" th:text="'Hello!'" ></div>
-<script>
-    function changePath(path){
-        console.log(path);
-        window.history.pushState({},"", path);
-    }
 
-</script>
-<div class="grid">
-dfsdf
-    pqsodiqspdoi
-    <div hx-boost="true" hx-get="/page/main" hx-target="#mainContent" hx-on="click: changePath('/')" >Main</div>
-    <div  hx-boost="true" hx-get="/page/about" hx-target="#mainContent" hx-on="click: changePath('/about')" >About</div>
-</div>
+
 
 <main id="mainContent" class="container">
-
+    <table>
+    <tr th:each="customer: ${customers}">
+        <td th:text="${customer.id}" />
+        <td th:text="${customer.name}" />
+    </tr>
+    </table>
 </main>
 </body>
 </html>
