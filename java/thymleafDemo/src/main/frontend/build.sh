@@ -1,4 +1,5 @@
 cd /code/src/main/frontend
 pwd
 ls
-npm run watch
+npm i
+npm run watchDocker
