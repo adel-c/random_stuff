@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{main_layout :: layout(~{::title}, ~{::body})}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/webjars/htmx.org/1.9.10/dist/htmx.js"></script>
-<!--    <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>-->
-    <link th:href="@{/main.css}" rel="stylesheet" />
+    <title>not found</title>
 </head>
-<body class="dark:bg-gray-900 dark:text-slate-200">
-<div class="mt-2 text-xl bg-blue-900" th:text="'Hello!'" ></div>
- ya pas
+<body>
+ not found
 </body>
 </html>

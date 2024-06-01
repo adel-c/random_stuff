@@ -4,27 +4,9 @@
     <title>coucou</title>
 </head>
 <body>
-
+<p> du text</p>
 <div th:replace="~{fragments/customer_table ::customer_tables}"> </div>
-    <table class="border-collapse table-fixed w-full text-sm">
-        <thead>
-        <tr>
-            <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                Song</th>
-            <th class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                Artist</th>
-            <th class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                email</th>
-        </tr>
-        </thead>
-        <tbody>
-    <tr th:each="customer: ${customers}">
-        <td ><a th:href="@{/customer/{id}(id=${customer.id})}" th:text="'edit'+${customer.id}">edit</a></td>
-        <td th:text="${customer.name}" ></td>
-        <td th:text="${customer.email}" ></td>
-    </tr>
-        </tbody>
-    </table>
 
+<div> encore du text</div>
 </body>
 </html>
