@@ -1,4 +1,11 @@
 services:
+  tailwind:
+    user: 1000:1000
+    volumes:
+      - ./:/code
+    build:
+      context: .
+      dockerfile: ./src/main/frontend/Dockerfile
   postgres:
     image: 'postgres:latest'
     environment:
