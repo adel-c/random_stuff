@@ -67,7 +67,11 @@ class CustomerController {
         model.addAttribute("customers", customerRepository.findAll());
         return "index";
     }
-
+    @GetMapping("/ct")
+    public String ct(Model model) {
+        model.addAttribute("customers", customerRepository.findAll());
+        return "fragments/customer_table :: customer_tables";
+    }
     @GetMapping("/customer")
     public String users(Model model) {
         model.addAttribute("customers", customerRepository.findAll());
