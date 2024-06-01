@@ -192,7 +192,7 @@
                     </executions>
                     <configuration>
                         <nodeVersion>v20.14.0</nodeVersion>
-                        <workingDirectory>src/main/frontend</workingDirectory>
+                        <workingDirectory>tailwind</workingDirectory>
                         <npmVersion>10.7.0</npmVersion>
 
                     </configuration>
