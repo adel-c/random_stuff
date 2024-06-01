@@ -7,17 +7,30 @@
 <!--    <link rel="stylesheet" href="/webjars/picocss__pico/1.5.10/css/pico.css"/>-->
     <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
-<body>
+<body class="dark:bg-gray-900 dark:text-slate-200">
 <div class="mt-2 text-xl bg-blue-900" th:text="'Hello!'" ></div>
 
 
 
-<main id="mainContent" class="container">
-    <table>
+<main id="mainContent" class="w-3/4 ">
+    <table class="border-collapse table-fixed w-full text-sm">
+        <thead>
+        <tr>
+            <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                Song</th>
+            <th class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                Artist</th>
+            <th class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
+                email</th>
+        </tr>
+        </thead>
+        <tbody>
     <tr th:each="customer: ${customers}">
         <td th:text="${customer.id}" />
         <td th:text="${customer.name}" />
+        <td th:text="${customer.email}" />
     </tr>
+        </tbody>
     </table>
 </main>
 </body>
