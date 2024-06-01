@@ -1,6 +1,7 @@
 services:
   tailwind:
     user: 1000:1000
+    stdin_open: true
     volumes:
       - ./:/code
     build:

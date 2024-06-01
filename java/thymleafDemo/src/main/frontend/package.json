@@ -3,8 +3,7 @@
   "private": true,
   "scripts": {
     "build": "tailwindcss -i main.css -o ../../../target/classes/static/main.css",
-    "watch": "tailwindcss -i main.css -o ../../../target/classes/static/main.css --watch",
-    "watchDocker": "tailwindcss -i main.css -o /code/target/classes/static/main.css --watch"
+    "watch": "tailwindcss -i main.css -o ../../../target/classes/static/main.css --watch"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.3"
