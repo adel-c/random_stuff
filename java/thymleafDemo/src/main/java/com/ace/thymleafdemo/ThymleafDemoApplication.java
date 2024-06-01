@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,7 @@ public class ThymleafDemoApplication {
 
 
 }
+@Configuration
 class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
