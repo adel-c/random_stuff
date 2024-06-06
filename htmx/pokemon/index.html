@@ -8,11 +8,12 @@
   <meta name="description" content="">
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
-  <script src="https://unpkg.com/mustache@latest"></script>
+  <script src="https://unpkg.com/nunjucks@3.2.4/browser/nunjucks.js"></script>
+
   <!--  <link-->
-<!--    rel="stylesheet"-->
-<!--    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/versions/bulma-prefixed.min.css"-->
-<!--  >-->
+  <!--    rel="stylesheet"-->
+  <!--    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/versions/bulma-prefixed.min.css"-->
+  <!--  >-->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.css"
@@ -31,40 +32,53 @@
 
 <main class="container">
 
-      <div hx-ext="client-side-templates"
-           hx-get="https://pokeapi.co/api/v2/pokemon/" hx-trigger="load"
-           mustache-template="foo"
-           hx-swap="outerHTML"
-      ></div>
+  <div hx-ext="client-side-templates"
+       hx-get="https://pokeapi.co/api/v2/pokemon/" hx-trigger="load"
+       nunjucks-template="foo"
+       hx-swap="beforeend"
+       hx-target="#pokemonGrid"
+       class="fixed-grid has-4-cols">
+    <div class="grid" id="pokemonGrid">
+
     </div>
+  </div>
+  </div>
   </div>
 
 </main>
-<template id="foo">
-  <div class="fixed-grid has-4-cols">
-    <div class="grid">
-      {{#results}}
+<script id="foo" type="x-tmpl-nunjucks">
 
-      <div class="cell card">
-        <header class="card-header">
-          {{name}}
-        </header>
-        <div class="card-content">
-          <div class="content" hx-get="{{url}}" hx-trigger="intersect once" hx-ext="client-side-templates" mustache-template="pokemonDetail" >
+  {% for result in results %}
+  <div class="cell card"
+    {% if loop.last %}
+    hx-get="{{next}}"  hx-trigger="intersect once"
+      nunjucks-template="foo"
+       hx-swap="beforeend"
+       hx-target="#pokemonGrid"
+    {% endif %}
+  >
+     <header class="card-header">
+      {{result.name}}
+      </header>
+      <div class="card-content">
+         <div class="content" hx-get="{{result.url}}" hx-trigger="intersect once" hx-swap="innerHTML" nunjucks-template="pokemonDetail" >
 
           </div>
-        </div>
       </div>
-      {{/results}}
-    </div>
   </div>
-  <p>machin {{count}}</p>
 
 
-</template>
-<template id="pokemonDetail">
+  {% endfor %}
+
+<p>machin {{count}}</p>
+
+
+</script>
+<script id="pokemonDetail" type="x-tmpl-nunjucks">
+
+  le machin
   <img  src="{{sprites.front_default}}" alt="{{name}} front image"></img>
-</template>
+</script>
 </body>
 
 </html>
