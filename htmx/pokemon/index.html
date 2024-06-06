@@ -7,7 +7,9 @@
   <title>pokemon</title>
   <meta name="description" content="">
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
-<!--  <link-->
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
+  <script src="https://unpkg.com/mustache@latest"></script>
+  <!--  <link-->
 <!--    rel="stylesheet"-->
 <!--    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/versions/bulma-prefixed.min.css"-->
 <!--  >-->
@@ -28,9 +30,41 @@
 
 
 <main class="container">
-  machin truc
-</main>
 
+      <div hx-ext="client-side-templates"
+           hx-get="https://pokeapi.co/api/v2/pokemon/" hx-trigger="load"
+           mustache-template="foo"
+           hx-swap="outerHTML"
+      ></div>
+    </div>
+  </div>
+
+</main>
+<template id="foo">
+  <div class="fixed-grid has-4-cols">
+    <div class="grid">
+      {{#results}}
+
+      <div class="cell card">
+        <header class="card-header">
+          {{name}}
+        </header>
+        <div class="card-content">
+          <div class="content" hx-get="{{url}}" hx-trigger="intersect once" hx-ext="client-side-templates" mustache-template="pokemonDetail" >
+
+          </div>
+        </div>
+      </div>
+      {{/results}}
+    </div>
+  </div>
+  <p>machin {{count}}</p>
+
+
+</template>
+<template id="pokemonDetail">
+  <img  src="{{sprites.front_default}}" alt="{{name}} front image"></img>
+</template>
 </body>
 
 </html>
