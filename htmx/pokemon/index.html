@@ -1,30 +1,21 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html  lang="">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>pokemon</title>
   <meta name="description" content="">
-  <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js"
+          integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS"
+          crossorigin="anonymous"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
-  <script src="https://unpkg.com/nunjucks@3.2.4/browser/nunjucks.js"></script>
-
-  <!--  <link-->
-  <!--    rel="stylesheet"-->
-  <!--    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/versions/bulma-prefixed.min.css"-->
-  <!--  >-->
+  <script src="https://unpkg.com/handlebars@latest/dist/handlebars.min.js"></script>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.css"
   >
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
 
-  <meta name="theme-color" content="#fafafa">
 </head>
 
 <body>
@@ -34,7 +25,7 @@
 
   <div hx-ext="client-side-templates"
        hx-get="https://pokeapi.co/api/v2/pokemon/" hx-trigger="load"
-       nunjucks-template="foo"
+       handlebars-template="pokemonResponse"
        hx-swap="beforeend"
        hx-target="#pokemonGrid"
        class="fixed-grid has-4-cols">
@@ -42,42 +33,36 @@
 
     </div>
   </div>
-  </div>
-  </div>
+
 
 </main>
-<script id="foo" type="x-tmpl-nunjucks">
-
-  {% for result in results %}
-  <div class="cell card"
-    {% if loop.last %}
-    hx-get="{{next}}"  hx-trigger="intersect once"
-      nunjucks-template="foo"
-       hx-swap="beforeend"
-       hx-target="#pokemonGrid"
-    {% endif %}
-  >
-     <header class="card-header">
-      {{result.name}}
+<script id="pokemonResponse" type="text/x-handlebars">
+  {{#each results}}
+    <div class="cell card"
+      {{#if @last}}
+         hx-get="{{../next}}" hx-trigger="intersect once"
+         handlebars-template="pokemonResponse"
+         hx-swap="beforeend"
+         hx-target="#pokemonGrid"
+      {{/if}}
+    >
+      <header class="card-header">
+        {{name}}
       </header>
-      <div class="card-content">
-         <div class="content" hx-get="{{result.url}}" hx-trigger="intersect once" hx-swap="innerHTML" nunjucks-template="pokemonDetail" >
-
-          </div>
+      <div class="card-content" hx-ext="client-side-templates">
+        <div class="content" hx-get="{{url}}" hx-trigger="intersect once" handlebars-template="pokemonDetail"
+             hx-target="this">
+        </div>
       </div>
-  </div>
-
-
-  {% endfor %}
-
-<p>machin {{count}}</p>
-
-
+    </div>
+  {{/each}}
 </script>
-<script id="pokemonDetail" type="x-tmpl-nunjucks">
+<script id="pokemonDetail" type="text/x-handlebars">
+  <img src="{{sprites.front_default}}" alt="{{name}} front image"/>
+  {{#each types}}
 
-  le machin
-  <img  src="{{sprites.front_default}}" alt="{{name}} front image"></img>
+    <span class="tag is-primary">{{type.name}}</span>
+  {{/each}}
 </script>
 </body>
 
