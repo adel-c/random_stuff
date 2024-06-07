@@ -23,13 +23,37 @@
 
 
 <main class="container">
+  <div>
+    <script>
+      function changeGridSize(offset){
+        let elt = document.getElementById("pokemonGridSize")
+        let sizeClass = Array.from(elt.classList).filter(e => e && e.indexOf("has-") > -1 && e.indexOf("-cols") > -1)
+        sizeClass = sizeClass[0]
+        let currentSize = parseInt(sizeClass.substring("has-".length, sizeClass.length - "cols".length))
+        let nextSize =  currentSize + offset
+        if(nextSize>0 && nextSize<13){
+          htmx.removeClass(elt, sizeClass);
+          htmx.addClass(elt, `has-${nextSize}-cols`);
+        }
+
+      }
+    </script>
+    <button class="button" onclick="changeGridSize(-1)"> -
+
+    </button >
+    <button class="button" onclick="changeGridSize(1)"> +
+    </button>
+
+
+
+  </div>
 
   <div hx-ext="client-side-templates"
        hx-get="https://pokeapi.co/api/v2/pokemon/" hx-trigger="load"
        handlebars-template="pokemonResponse"
        hx-swap="beforeend"
        hx-target="#pokemonGrid"
-       class="fixed-grid has-4-cols">
+       class="fixed-grid has-4-cols" id="pokemonGridSize">
     <div class="grid" id="pokemonGrid">
 
     </div>
@@ -58,23 +82,7 @@
                 </div>
             </div>
 
-            <{{_}}script>
-                // Run immediately.
-                (async (e = me()) => {
-                    me(e).styles({"transition": "background 1s"})
-                    while (1) {
-                        await sleep(1000)
-                        me(e).styles({"background": "red"})
-                        await sleep(1000)
-                        me(e).styles({"background": "green"})
-                        await sleep(1000)
-                        me(e).styles({"background": "blue"})
-                        await sleep(1000)
-                        me(e).styles({"background": "none"})
-                        await sleep(1000)
-                    }
-                })()
-            </{{_}}script>
+
         </div>
     {{/each}}
 </script>
