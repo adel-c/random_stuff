@@ -11,6 +11,7 @@
           crossorigin="anonymous"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
   <script src="https://unpkg.com/handlebars@latest/dist/handlebars.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/gnat/surreal@main/surreal.js"></script>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.css"
@@ -37,25 +38,45 @@
 
 </main>
 <script id="pokemonResponse" type="text/x-handlebars">
-  {{#each results}}
-    <div class="cell card"
-      {{#if @last}}
-         hx-get="{{../next}}" hx-trigger="intersect once"
-         handlebars-template="pokemonResponse"
-         hx-swap="beforeend"
-         hx-target="#pokemonGrid"
-      {{/if}}
-    >
-      <header class="card-header">
-        {{name}}
-      </header>
-      <div class="card-content" hx-ext="client-side-templates">
-        <div class="content" hx-get="{{url}}" hx-trigger="intersect once" handlebars-template="pokemonDetail"
-             hx-target="this">
+    {{#each results}}
+        <div class="cell card"
+            {{#if @last}}
+             hx-get="{{../next}}" hx-trigger="intersect once"
+             handlebars-template="pokemonResponse"
+             hx-swap="beforeend"
+             hx-target="#pokemonGrid"
+
+
+            {{/if}}
+        >
+            <header class="card-header">
+                {{name}}
+            </header>
+            <div class="card-content" hx-ext="client-side-templates">
+                <div class="content" hx-get="{{url}}" hx-trigger="intersect once" handlebars-template="pokemonDetail"
+                     hx-target="this">
+                </div>
+            </div>
+
+            <{{_}}script>
+                // Run immediately.
+                (async (e = me()) => {
+                    me(e).styles({"transition": "background 1s"})
+                    while (1) {
+                        await sleep(1000)
+                        me(e).styles({"background": "red"})
+                        await sleep(1000)
+                        me(e).styles({"background": "green"})
+                        await sleep(1000)
+                        me(e).styles({"background": "blue"})
+                        await sleep(1000)
+                        me(e).styles({"background": "none"})
+                        await sleep(1000)
+                    }
+                })()
+            </{{_}}script>
         </div>
-      </div>
-    </div>
-  {{/each}}
+    {{/each}}
 </script>
 <script id="pokemonDetail" type="text/x-handlebars">
   <img src="{{sprites.front_default}}" alt="{{name}} front image"/>
